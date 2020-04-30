@@ -7,7 +7,7 @@ highestNumber = [300000, 150000, 30000, 25000]
 lowestNumber = [20000, 25, 25, 25]
 
 #Gamemode specific url modifiers
-gametype_url = ['', '_iromman','_ultimate','_hardcore_ironman']
+gametype_url = ['', '_ironman','_ultimate','_hardcore_ironman']
 
 #For printing
 gamemode = ['Regular', 'Ironman', 'Ultimate Ironman', 'Hardcore Ironman']
