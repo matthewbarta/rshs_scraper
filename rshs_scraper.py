@@ -78,7 +78,8 @@ for gm in range(len(gametype_url)):
                 lowPage = currentPage + 1
             else:
                 highPage = currentPage - 1
-        rank.append(int(lastRank))
-        sheet.cell(row = 4 + skill, column = 3 + gm).value = str(int(lastRank))
+        # Add the data to an excel spreadsheet, comma-separated.
+        sheet.cell(row = 4 + skill, column = 3 + gm).value = int(lastRank)
+        sheet.cell(row = 4 + skill, column = 3 + gm).number_format = '#,##0'
         print(skills[skill] + ": " + str(lastRank))
 wb.save('rshs_99s.xlsx')
