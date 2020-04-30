@@ -3,9 +3,13 @@ import requests, bs4, re
 skills = ['Attack', 'Defence', 'Strength', 'Hitpoints', 'Ranged', 'Prayer', 'Magic', 'Cooking', 'Woodcutting', 'Fletching', 'Fishing', 'Firemaking', 'Crafting', 'Smithing', 'Mining', 'Herblore', 'Agility', 'Thieving', 'Slayer', 'Farming', 'Runecraft', 'Hunter', 'Construction']
 modes = []
 #Change this number as time goes on to reflect what highest possible 99 could be.
-highestNumber = [300000, 150000, 30000, 20000]
+highestNumber = [300000, 150000, 30000, 25000]
 lowestNumber = [20000, 25, 25, 25]
+
+#Gamemode specific url modifiers
 gametype_url = ['', '_iromman','_ultimate','_hardcore_ironman']
+
+#For printing
 gamemode = ['Regular', 'Ironman', 'Ultimate Ironman', 'Hardcore Ironman']
 
 # Loop over each gamemode.
@@ -22,7 +26,7 @@ for gm in range(len(gametype_url)):
         lastLevel = '0'
         done = False
         # This loops over pages of an individual skill.
-        while not done:
+        while not done and lowPage <= highPage:
             currentPage = int(lowPage + (highPage - lowPage) // 2)
             #! DEBUG print("Current page: " + str(currentPage) + ", High: " + str(highPage) + ", Low: " + str(lowPage))
             # Base url
@@ -39,9 +43,7 @@ for gm in range(len(gametype_url)):
                 currentRank = elems[i][0].replace(',', '')
                 #Condition for last person w/ 99
                 if currentLevel == '98' and lastLevel == '99' and lastRank == int(currentRank) - 1:
-                    rank.append(int(lastRank))
                     done = True
-                    print(skills[skill] + ": " + str(rank[skill]))
                     break
                 #Update Rank
                 else:
@@ -52,7 +54,9 @@ for gm in range(len(gametype_url)):
                 lowPage = currentPage + 1
             else:
                 highPage = currentPage - 1
-        modes.append(rank)
+        rank.append(int(lastRank))
+        print(skills[skill] + ": " + str(rank[skill]))
+    modes.append(rank)
 
 #Print all lists
 print(modes)
